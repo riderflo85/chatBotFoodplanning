@@ -7,12 +7,22 @@ const app = express().use(bodyParser.json()); // Create express http server
 const postBack = require('./manager_events/manager_post_back');
 const sendMessage = require('./manager_events/manager_event_message');
 
+const ip = require('./commands/ip');
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1338, () => console.log('webhook is listening :-)'));
 
 app.get('/', function (req, res){
-    res.send('Hello world');
+    const onSuccess = body => {
+        res.send(body);
+    }
+    const onFailure = err => {
+        console.log(err);
+    }
+
+    const myReq = ip.checkIp();
+    myReq.then(onSuccess).catch(onFailure);
+    // res.send('Hello world');
 });
 
 
