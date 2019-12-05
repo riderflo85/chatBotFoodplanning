@@ -10,7 +10,14 @@ exports.parser = (text) => {
         return `Aujourd'hui nous somme le ${date.datenow()}`;
 
     } else if (text.toLowerCase().includes("ip")) {
-        return `L'ip du serveur est: ${ip.checkIp()}`;
+        const onSuccess = body => {
+            return `L'ip du serveur est: ${body}`;
+        }
+        const onFailure = err => {
+            return `Impossible de trouver l'ip du serveur\n${err}`;
+        }
+        const myRequest = ip.checkIp();
+        myRequest.then(onSuccess).catch(onFailure);
 
     } else {
         return `Votre message est le suivant: ${text}\nVoici la liste des mots reconnus dans une phrase:\n - ... jour...\n - ... date...\n - ... ip...`;
