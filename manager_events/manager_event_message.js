@@ -1,5 +1,6 @@
 // import the 'callSendApi' function that into the 'send_api.js'
 const sendApi = require('../send_message');
+const parser = require('../parser');
 
 // Handles messages events
 exports.handleMessage = (sender_psid, received_message) => {
@@ -10,7 +11,7 @@ exports.handleMessage = (sender_psid, received_message) => {
 
         // Create the payload for a basic text message
         response = {
-            "text": `You sent the message: "${received_message.text}". Now send me an attachments!`
+            "text": parser.parser(received_message.text)
         };
     } else if (received_message.attachments) {
 
