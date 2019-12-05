@@ -1,9 +1,10 @@
 const request = require('request');
 
-const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
 // Sends response messages via the Send API
-exports.callSendAPI = (sender_psid, response) => {
+exports.callSendAPI = (sender_psid, response, token) => {
+    const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
+
     // Construct the message body
     let request_body = {
         "recipient": {
