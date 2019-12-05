@@ -4,7 +4,7 @@ const ip = require('./commands/ip');
 
 exports.parser = (text) => {
     if (text.toLowerCase().includes("jour")) {
-        return `Aujourd'hui nous somme le ${day.day()}`;
+        return `Aujourd'hui nous somme ${day.day()}`;
 
     } else if (text.toLowerCase().includes("date")) {
         return `Aujourd'hui nous somme le ${date.datenow()}`;
