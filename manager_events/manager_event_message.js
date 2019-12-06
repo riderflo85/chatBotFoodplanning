@@ -15,6 +15,7 @@ exports.handleMessage = (sender_psid, received_message) => {
             response = {
                 "text": `L'ip du serveur est: ${body}`
             };
+            sendApi.callSendAPI(sender_psid, response);
         }
 
         const onFailure = err => {
