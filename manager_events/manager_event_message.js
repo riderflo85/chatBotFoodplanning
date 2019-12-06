@@ -3,16 +3,19 @@ const sendApi = require('../send_message');
 const parser = require('../parser');
 
 // Handles messages events
-exports.handleMessage = (sender_psid, received_message) => {
+exports.handleMessage = (sender_psid, received_message, req) => {
     let response;
 
     // Check if the message contains text
     if (received_message.text) {
 
         // Create the payload for a basic text message
+        // response = {
+        //     "text": parser.parser(received_message.text)
+        // };
         response = {
-            "text": parser.parser(received_message.text)
-        };
+            "text": req
+        }
     } else if (received_message.attachments) {
 
         // Gets the URL of the message attachment
