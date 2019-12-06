@@ -14,7 +14,7 @@ exports.handleMessage = (sender_psid, received_message, req) => {
         //     "text": parser.parser(received_message.text)
         // };
         response = {
-            "text": req
+            "text": req.toString()
         }
     } else if (received_message.attachments) {
 
