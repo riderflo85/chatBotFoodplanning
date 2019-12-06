@@ -12,10 +12,10 @@ exports.handleMessage = (sender_psid, received_message) => {
         let parsed = parser.parser(received_message.text);
 
         const onSucess = body => {
-            response = {
+            let data = {
                 "text": `L'ip du serveur est: ${body}`
             };
-            sendApi.callSendAPI(sender_psid, response);
+            sendApi.callSendAPI(sender_psid, data);
         }
 
         const onFailure = err => {
@@ -32,6 +32,7 @@ exports.handleMessage = (sender_psid, received_message) => {
             response = {
                 "text": parsed
             };
+            sendApi.callSendAPI(sender_psid, response);
         }
 
     } else if (received_message.attachments) {
@@ -66,5 +67,5 @@ exports.handleMessage = (sender_psid, received_message) => {
     }
 
     // Sends the response message
-    sendApi.callSendAPI(sender_psid, response);
+    // sendApi.callSendAPI(sender_psid, response);
 }
