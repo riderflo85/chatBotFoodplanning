@@ -63,6 +63,7 @@ app.post('/webhook', (req, res) => {
 // Adds support for GET requests to our webhook
 app.get('/webhook', (req, res) => {
 
+  console.log(req.originalUrl);
   // Your verify token. Should be a random string.
   let VERIFY_TOKEN = "its_my_tock3n"
 
