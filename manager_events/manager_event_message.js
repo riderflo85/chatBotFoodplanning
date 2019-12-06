@@ -3,19 +3,36 @@ const sendApi = require('../send_message');
 const parser = require('../parser');
 
 // Handles messages events
-exports.handleMessage = (sender_psid, received_message, req) => {
+exports.handleMessage = (sender_psid, received_message) => {
     let response;
 
     // Check if the message contains text
     if (received_message.text) {
 
-        // Create the payload for a basic text message
-        // response = {
-        //     "text": parser.parser(received_message.text)
-        // };
-        response = {
-            "text": req.originalUrl
+        let parsed = parser.parser(received_message.text);
+
+        const onSucess = body => {
+            response = {
+                "text": `L'ip du serveur est: ${body}`
+            };
         }
+
+        const onFailure = err => {
+            response = {
+                "text": `Impossible de trouver l'ip du serveur\n${err}`
+            };
+        }
+
+        // Checks if the message should be requested
+        if (typeof parsed != 'string') {
+            parsed.then(onSucess).catch(onFailure);
+        } else {
+            // Create the payload for a basic text message
+            response = {
+                "text": parsed
+            };
+        }
+
     } else if (received_message.attachments) {
 
         // Gets the URL of the message attachment

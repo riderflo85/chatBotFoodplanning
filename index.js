@@ -43,7 +43,7 @@ app.post('/webhook', (req, res) => {
         // Check if the event is a message or postback and
         // pass the event to the appropriate handler function
         if (webhook_event.message) {
-            sendMessage.handleMessage(sender_psid, webhook_event.message, req);
+            sendMessage.handleMessage(sender_psid, webhook_event.message);
         } else if (webhook_event.postback) {
             postBack.handlePostback(sender_psid, webhook_event.postback);
         }
@@ -63,7 +63,6 @@ app.post('/webhook', (req, res) => {
 // Adds support for GET requests to our webhook
 app.get('/webhook', (req, res) => {
 
-  console.log(req.originalUrl);
   // Your verify token. Should be a random string.
   let VERIFY_TOKEN = "its_my_tock3n"
 
