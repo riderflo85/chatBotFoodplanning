@@ -13,16 +13,7 @@ const ip = require('./commands/ip');
 app.listen(process.env.PORT || 1338, () => console.log('webhook is listening :-)'));
 
 app.get('/', function (req, res){
-    const onSuccess = body => {
-        res.send(body);
-    }
-    const onFailure = err => {
-        console.log(err);
-    }
-
-    const myReq = ip.checkIp();
-    myReq.then(onSuccess).catch(onFailure);
-    // res.send('Hello world');
+    res.send('Hello world');
 });
 
 
@@ -30,6 +21,7 @@ app.get('/', function (req, res){
 // Creates the endpoint for our webhook
 app.post('/webhook', (req, res) => {
 
+  console.log(req);
   let body = req.body;
 
   // Checks this is an event from a page subscription
