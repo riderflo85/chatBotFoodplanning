@@ -1,5 +1,5 @@
 // import the 'callSendApi' function that into the 'send_api.js'
-const sendApi = require('../send_message');
+const sendApi = require('../utils/send_message');
 
 // Handles messaging_postbacks events
 exports.handlePostback = (sender_psid, received_postback) => {

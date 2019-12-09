@@ -1,6 +1,6 @@
 // import the 'callSendApi' function that into the 'send_api.js'
-const sendApi = require('../send_message');
-const parser = require('../parser');
+const sendApi = require('../utils/send_message');
+const parser = require('../utils/parser');
 
 // Handles messages events
 exports.handleMessage = (sender_psid, received_message) => {
@@ -33,38 +33,5 @@ exports.handleMessage = (sender_psid, received_message) => {
             response = {"text": parsed};
             sendApi.callSendAPI(sender_psid, response);
         }
-
-    } else if (received_message.attachments) {
-
-        // Gets the URL of the message attachment
-        let attachment_url = received_message.attachments[0].payload.url;
-        response = {
-            "attachment": {
-                "type": "template",
-                "payload": {
-                    "template_type": "generic",
-                    "elements": [{
-                        "title": "Is this the right picture?",
-                        "subtitle": "Tap a button to answer.",
-                        "image_url": attachment_url,
-                        "buttons": [
-                            {
-                                "type": "postback",
-                                "title": "Yes!",
-                                "payload": "yes",
-                            },
-                            {
-                                "type": "postback",
-                                "title": "No!",
-                                "payload": "no",
-                            }
-                        ],
-                    }]
-                }
-            }
-        }
     }
-
-    // Sends the response message
-    // sendApi.callSendAPI(sender_psid, response);
 }
