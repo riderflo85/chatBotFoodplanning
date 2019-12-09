@@ -6,4 +6,4 @@ function datenow() {
     return `${days[date.getDay() - 1]} ${date.getDate()} ${month[date.getMonth()]}`;
 };
 
-module.exports = datenow;
+module.exports = datenow();
