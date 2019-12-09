@@ -1,4 +1,4 @@
-const date = require('../commands/date');
+const datenow = require('../commands/date');
 const day = require('../commands/day');
 const ip = require('../commands/ip');
 
@@ -7,7 +7,7 @@ exports.parser = (text) => {
         return `Aujourd'hui nous somme ${day.day()}`;
 
     } else if (text.toLowerCase().includes("date")) {
-        return `Aujourd'hui nous somme le ${date.datenow()}`;
+        return `Aujourd'hui nous somme le ${datenow()}`;
 
     } else if (text.toLowerCase().includes("ip")) {
         const myRequest = ip.checkIp();
