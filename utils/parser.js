@@ -1,6 +1,6 @@
-const date = require('./commands/date');
-const day = require('./commands/day');
-const ip = require('./commands/ip');
+const date = require('../commands/date');
+const day = require('../commands/day');
+const ip = require('../commands/ip');
 
 exports.parser = (text) => {
     if (text.toLowerCase().includes("jour")) {
