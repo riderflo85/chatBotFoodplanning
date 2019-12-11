@@ -43,7 +43,7 @@ class DatabaseManager {
 
 
 // export class
-module.exports = DatabaseManager;
+module.exports = { DatabaseManager };
 
 
 

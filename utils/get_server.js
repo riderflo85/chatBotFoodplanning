@@ -8,4 +8,5 @@ function serverMatched(psid) {
     return reqDb;
 }
 
-module.exports = serverMatched;
+
+module.exports = { serverMatched };
