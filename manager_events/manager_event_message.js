@@ -9,11 +9,11 @@ exports.handleMessage = (sender_psid, received_message) => {
     // Check if the message contains text
     if (received_message.text) {
 
-        let parsed = parser.parser(received_message.text);
+        let parsed = parser.parser(received_message.text, sender_psid);
 
         /*----------------------Reaction of the promise----------------------*/
-        const onSucess = body => {
-            let data = {"text": `L'ip du serveur est: ${body}`};
+        const onSucess = rep => {
+            let data = {"text": `L'url du serveur est: ${rep.username}`};
             sendApi.callSendAPI(sender_psid, data);
         }
 
@@ -26,7 +26,7 @@ exports.handleMessage = (sender_psid, received_message) => {
 
         // Checks if the message should be requested
         if (typeof parsed != 'string') {
-            parsed.then(onSucess).catch(onFailure);
+            parsed.then(onSucess).catch(onFailure); // A remplacer par la requete vers FoodPlanning
 
         } else {
             // Create the payload for a basic text message

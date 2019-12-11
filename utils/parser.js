@@ -1,6 +1,7 @@
 const date = require('../commands/date');
 const day = require('../commands/day');
 const ip = require('../commands/ip');
+const { serverMatched } = require('./get_server');
 
 
 const days = {
@@ -17,7 +18,7 @@ const moment_day = {
     "soir": "pm"
 };
 
-
+/*--------------------------Regular expression-------------------------------*/
 // Sans indiquer le jour de la semiane
 const regexp1 = /^(.)*(mange)(.)+(ce|se)\s(midi|soir)/ig;
 // Détermine si la demande concerne le midi ou le soir
@@ -26,9 +27,9 @@ const regexp2 = /(midi|soir)/ig;
 const regexp3 = /^(.)*(mange)(.)+(lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)\s(midi|soir)/ig;
 // Détermine le jour de la semaine
 const regexp4 = /(lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)/ig;
+/*---------------------------------------------------------------------------*/
 
-
-exports.parser = (text) => {
+exports.parser = (text, psid) => {
     if (text.toLowerCase().includes("jour")) {
         return `Aujourd'hui nous somme ${day.day()}`;
 
@@ -39,7 +40,7 @@ exports.parser = (text) => {
         const myRequest = ip.checkIp();
         return myRequest;
 
-    }  else if (regexp1.test(text)) {
+    } else if (regexp1.test(text)) {
         let today = days[day.day().toLowerCase()]; // Détermine le jour de la requete
         let moment = moment_day[text.match(regexp2)[0]];
         return `La requete est pour aujourd'hui (en: ${today}) et pour le (en: ${moment})`;
@@ -48,17 +49,10 @@ exports.parser = (text) => {
         let response;
         let day = days[text.match(regexp4)[0]];
         let moment = moment_day[text.match(regexp2)[0]];
-        // for (i in days) { // i == 'lundi'...
-        //     if (text.toLowerCase().includes(i)) {
-        //         console.log("Good");
-        //         console.log(days[i]); // days[i] == days['lundi']
-        //         day = days[i];
-        //         // faire la requete à l'api avec le bon jour (days[i])
-        //         // response = réponse de la requete à l'api
-        //     }
-        // }
-        // return response;
         return `La requete est pour le jour: (en) ${day} et pour le moment de la journée: (en) ${moment}`;
+
+    } else if (text.toLowerCase().includes("mon serveur")) {
+        return serverMatched(psid);
 
     } else {
         return `Votre message est le suivant: ${text}\nVoici la liste des mots reconnus dans une phrase:\n - ... jour...\n - ... date...\n - ... ip...`;
