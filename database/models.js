@@ -3,8 +3,11 @@ const sq = require('sqlite3').verbose();
 
 
 class DatabaseManager {
+    /* Get and set data in the database */
 
     constructor(dbPathFile) {
+        /* Connecting the database */
+
         this.db = new sq.Database(dbPathFile, (err) => {
             if (!err) {
                 console.log("Connection à la base de données");
@@ -15,6 +18,8 @@ class DatabaseManager {
     }
 
     getData(pssid) {
+        /* Getting the data in the database */
+
         let sqlReq = `SELECT username, url_server FROM user_server WHERE pssid=${pssid}`;
 
         return new Promise((resolve, reject) => {
@@ -29,6 +34,8 @@ class DatabaseManager {
     }
 
     injectData(pssid, username, url) {
+        /* Setting the data in the database */
+
         try {
             let prepareReq = this.db.prepare("INSERT INTO user_server(pssid,username,url_server) VALUES(?,?,?)");
             prepareReq.run(pssid, username, url);

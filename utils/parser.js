@@ -44,13 +44,18 @@ exports.parser = (text, psid) => {
         let today = days[day.day().toLowerCase()]; // Détermine le jour de la requete
         let moment = moment_day[text.match(regexp2)[0]];
         return `La requete est pour aujourd'hui (en: ${today}) et pour le (en: ${moment})`;
+        // let response = myDish(today, moment, psid);
+        // response is a promise
+        // return response;
 
     } else if (regexp3.test(text)) {
-        let response;
         let day = days[text.match(regexp4)[0]];
         let moment = moment_day[text.match(regexp2)[0]];
         return `La requete est pour le jour: (en) ${day} et pour le moment de la journée: (en) ${moment}`;
-
+        // let response = myDish(day, moment, psid);
+        // response is a promise
+        // return response;
+        
     } else if (text.toLowerCase().includes("mon serveur")) {
         return serverMatched(psid);
 
