@@ -13,7 +13,7 @@ exports.handleMessage = (sender_psid, received_message) => {
 
         /*----------------------Reaction of the promise----------------------*/
         const onSucess = rep => {
-            let data = {"text": `L'url du serveur est: ${rep.username}`};
+            let data = {"text": `L'url du serveur est: ${rep.url_server}`};
             sendApi.callSendAPI(sender_psid, data);
         }
 
