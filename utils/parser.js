@@ -27,10 +27,12 @@ const regexp2 = /(midi|soir)/ig;
 const regexp3 = /^(.)*(mange)(.)+(lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)\s(midi|soir)/ig;
 // Détermine le jour de la semaine
 const regexp4 = /(lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)/ig;
+// Pour la commande jour. Détermine si le mot 'jour' est présent
+const regexp5 = /(jour)/ig;
 /*---------------------------------------------------------------------------*/
 
 exports.parser = (text, psid) => {
-    if (text.toLowerCase().includes("jour")) {
+    if (regexp5.test(text)) {
         return `Aujourd'hui nous somme ${day.day()}`;
 
     } else if (text.toLowerCase().includes("date")) {
