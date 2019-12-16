@@ -59,6 +59,11 @@ exports.parser = (text, psid) => {
     } else if (text.toLowerCase().includes("mon serveur")) {
         return serverMatched(psid);
 
+    } else if (text.toLowerCase().includes("bonjour")) {
+        return "Bonjour et bienvenu.\n\
+Afin que je puisse répondre à vos requêtes sur votre planning de repas, je dois enregistrer l'url de votre application web FoodPlanning ainsi que votre pseudo sur votre application web.\
+Votre message doit correspondre à celui-ci:\nurl: https://votre_url.com :: pseudo: votre_pseudo";
+
     } else {
         return `Votre message est le suivant: ${text}\nVoici la liste des mots reconnus dans une phrase:\n - ... jour...\n - ... date...\n - ... ip...`;
     }
