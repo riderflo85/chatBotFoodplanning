@@ -28,7 +28,7 @@ const regexp3 = /^(.)*(mange)(.)+(lundi|mardi|mercredi|jeudi|vendredi|samedi|dim
 // Détermine le jour de la semaine
 const regexp4 = /(lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)/ig;
 // Pour la commande jour. Détermine si le mot 'jour' est présent
-const regexp5 = /(jour)/ig;
+const regexp5 = /^(jour)/ig;
 /*---------------------------------------------------------------------------*/
 
 exports.parser = (text, psid) => {
