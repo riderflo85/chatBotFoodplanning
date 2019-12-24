@@ -2,6 +2,7 @@ const date = require('../commands/date');
 const day = require('../commands/day');
 const ip = require('../commands/ip');
 const { serverMatched } = require('./get_server');
+const { saveUserInDb } = require('./save_user');
 
 
 const days = {
@@ -29,6 +30,8 @@ const regexp3 = /^(.)*(mange)(.)+(lundi|mardi|mercredi|jeudi|vendredi|samedi|dim
 const regexp4 = /(lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche)/ig;
 // Pour la commande jour. Détermine si le mot 'jour' est présent
 const regexp5 = /^(jour)/ig;
+// Sauvegarde l'url et le pseudo du serveur de l'utilisateur
+const regexp6 = /^(url:)\s(.)+\s(pseudo:)\s(.)+$/ig;
 /*---------------------------------------------------------------------------*/
 
 exports.parser = (text, psid) => {
@@ -65,6 +68,18 @@ exports.parser = (text, psid) => {
         return "Bonjour et bienvenu.\n\n\
 Afin que je puisse répondre à vos requêtes sur votre planning de repas, je dois enregistrer l'url de votre application web FoodPlanning ainsi que votre pseudo sur votre application web. \n\n\
 Envoyez-moi un message qui doit correspondre à celui-ci:\n\nUrl: https://votre_url.com\nPseudo: votre_pseudo";
+
+    } else if (regexp6.test(text)) {
+        let result = [];
+        for (const infos of text.split("\n")) {
+            let res = infos.split(" ");
+            result.push(res[1]);
+        }
+        if (saveUserInDb(psid, result[1], result[0])) {
+            return "Vous avez bien été enregistré dans la base de données.";
+        } else {
+            return "Échec de l'enregistrement de vos informations dans la base de données.";
+        }
 
     } else {
         return `Votre message est le suivant: ${text}\nVoici la liste des mots reconnus dans une phrase:\n - ... jour...\n - ... date...\n - ... ip...`;
