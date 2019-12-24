@@ -62,9 +62,9 @@ exports.parser = (text, psid) => {
         return serverMatched(psid);
 
     } else if (text.toLowerCase().includes("bonjour")) {
-        return "Bonjour et bienvenu.\n\
-Afin que je puisse répondre à vos requêtes sur votre planning de repas, je dois enregistrer l'url de votre application web FoodPlanning ainsi que votre pseudo sur votre application web. \
-Votre message doit correspondre à celui-ci:\n\nUrl: https://votre_url.com\nPseudo: votre_pseudo";
+        return "Bonjour et bienvenu.\n\n\
+Afin que je puisse répondre à vos requêtes sur votre planning de repas, je dois enregistrer l'url de votre application web FoodPlanning ainsi que votre pseudo sur votre application web. \n\n\
+Envoyez-moi un message qui doit correspondre à celui-ci:\n\nUrl: https://votre_url.com\nPseudo: votre_pseudo";
 
     } else {
         return `Votre message est le suivant: ${text}\nVoici la liste des mots reconnus dans une phrase:\n - ... jour...\n - ... date...\n - ... ip...`;
