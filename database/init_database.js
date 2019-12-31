@@ -1,15 +1,15 @@
 // import sqlite3
-const sq = require('sqlite3').verbose();
+// const sq = require('sqlite3').verbose();
 
 
 /*------------------------For create database and table----------------------*/
-var db = new sq.Database('./database/chat-bot.db');
+// var db = new sq.Database('./database/chat-bot.db');
 
-db.serialize(function() {
-    db.run("CREATE TABLE user_server (id_user INTEGER PRIMARY KEY, pssid INTEGER NOT NULL, username TEXT NOT NULL, url_server TEXT NOT NULL)");
-});
+// db.serialize(function() {
+//     db.run("CREATE TABLE user_server (id_user INTEGER PRIMARY KEY, pssid INTEGER NOT NULL, username TEXT NOT NULL, url_server TEXT NOT NULL)");
+// });
 
-db.close();
+// db.close();
 /*---------------------------------------------------------------------------*/
 
 
@@ -28,3 +28,24 @@ db.close();
 //     console.log(row);
 // });
 /*---------------------------------------------------------------------------*/
+
+/* Using sequelize ORM */
+const Sequelize = require('sequelize');
+
+// Connect SQLite database
+const db = new Sequelize({
+    dialect: 'sqlite',
+    storage: './database/chat-bot.db'
+});
+
+// Test connection dabatabase
+db.authenticate().then(() => {
+    console.log("Connexion ok");
+    db.close();
+}).catch(err => {
+    console.log(`Connxion not ok, error => ${err}`);
+});
+
+// module.exports = { Sequelize };
+// Exports sequelize instance
+module.exports = { db };

@@ -1,56 +1,56 @@
 // import sqlite3
-const sq = require('sqlite3').verbose();
+// const sq = require('sqlite3').verbose();
 
 
-class DatabaseManager {
-    /* Get and set data in the database */
+// class DatabaseManager {
+//     /* Get and set data in the database */
 
-    constructor(dbPathFile) {
-        /* Connecting the database */
+//     constructor(dbPathFile) {
+//         /* Connecting the database */
 
-        this.db = new sq.Database(dbPathFile, (err) => {
-            if (!err) {
-                console.log("Connection à la base de données");
-            } else {
-                console.warn("Impossible de se connecter à la base de données", err);
-            }
-        });
-    }
+//         this.db = new sq.Database(dbPathFile, (err) => {
+//             if (!err) {
+//                 console.log("Connection à la base de données");
+//             } else {
+//                 console.warn("Impossible de se connecter à la base de données", err);
+//             }
+//         });
+//     }
 
-    getData(pssid) {
-        /* Getting the data in the database */
+//     getData(pssid) {
+//         /* Getting the data in the database */
 
-        let sqlReq = `SELECT username, url_server FROM user_server WHERE pssid=${pssid}`;
+//         let sqlReq = `SELECT username, url_server FROM user_server WHERE pssid=${pssid}`;
 
-        return new Promise((resolve, reject) => {
-            this.db.get(sqlReq, function(err, rep) {
-                if (!err) {
-                    resolve(rep);
-                } else {
-                    reject(err);
-                }
-            });
-        });
-    }
+//         return new Promise((resolve, reject) => {
+//             this.db.get(sqlReq, function(err, rep) {
+//                 if (!err) {
+//                     resolve(rep);
+//                 } else {
+//                     reject(err);
+//                 }
+//             });
+//         });
+//     }
 
-    injectData(pssid, username, url) {
-        /* Setting the data in the database */
+//     injectData(pssid, username, url) {
+//         /* Setting the data in the database */
 
-        try {
-            let prepareReq = this.db.prepare("INSERT INTO user_server(pssid,username,url_server) VALUES(?,?,?)");
-            prepareReq.run(pssid, username, url);
+//         try {
+//             let prepareReq = this.db.prepare("INSERT INTO user_server(pssid,username,url_server) VALUES(?,?,?)");
+//             prepareReq.run(pssid, username, url);
 
-            return true;
+//             return true;
 
-        } catch (error) {
-            return error;
-        }
-    }
-}
+//         } catch (error) {
+//             return error;
+//         }
+//     }
+// }
 
 
-// export class
-module.exports = { DatabaseManager };
+// // export class
+// module.exports = { DatabaseManager };
 
 
 
@@ -76,3 +76,17 @@ dbReq.then(onSuccess).catch(onFailure);
 
 conn.db.close();
 -----------------------------------------------------------------------------*/
+
+
+// Using sequelize ORM for create table in the database
+const Sequelize = require('sequelize');
+const { db } = require('./init_database');
+const Model = Sequelize.Model;
+
+
+class User extends Model {}
+
+User.init({
+    //Field | attributes
+    
+})
